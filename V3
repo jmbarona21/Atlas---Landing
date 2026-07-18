@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATLAS — Your bro in every city</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Cinzel:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --navy: #0A2A47;
+    --navy-2: #0E3A5E;
+    --sky: #63CDD9;
+    --blue: #1789A8;
+    --orange: #F45A20;
+    --green: #0C9563;
+  }
+  body {
+    margin: 0;
+    /* Emoji font LAST so normal text uses Inter and only emoji glyphs fall back */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif,
+                 "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+    background: var(--navy);
+    color: #fff;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; }
+  button { cursor: pointer; font-family: inherit; border: none; }
+  input { font-family: inherit; }
+
+  /* ============ FUTURISTIC HEADER ============ */
+  header.site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,46,68,.62);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid rgba(99,205,217,.16);
+  }
+  header.site-header::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(12,149,99,.9), rgba(99,205,217,.9), rgba(244,90,32,.9), transparent);
+    background-size: 200% 100%;
+    animation: scanline 6s linear infinite;
+  }
+  @keyframes scanline { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .header-inner {
+    max-width: 1140px; margin: 0 auto; padding: 14px 22px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .logo-wrap { display: flex; align-items: center; gap: 11px; }
+
+  /* Animated ATLAS mark */
+  .atlas-mark { position: relative; flex: none; }
+  .atlas-mark .ring-pulse {
+    position: absolute; inset: -6px; border-radius: 50%;
+    border: 1px solid rgba(12,149,99,.5);
+    animation: pulseRing 2.8s ease-out infinite;
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(.8); opacity: .8; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  .logo-word {
+    font-family: 'Cinzel', serif; font-weight: 600;
+    font-size: 22px; letter-spacing: .1em; color: #fff;
+    position: relative;
+  }
+  .logo-word::after {
+    content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+    background: linear-gradient(90deg, var(--green), var(--sky));
+    transition: width .4s ease;
+  }
+  .logo-wrap:hover .logo-word::after { width: 100%; }
+
+  /* Futuristic segmented lang toggle */
+  .lang-toggle {
+    position: relative; display: flex; align-items: center;
+    background: rgba(99,205,217,.08);
+    border: 1px solid rgba(99,205,217,.28);
+    border-radius: 999px; padding: 4px;
+    box-shadow: inset 0 0 18px rgba(99,205,217,.08);
+  }
+  .lang-thumb {
+    position: absolute; top: 4px; left: 4px; height: calc(100% - 8px); width: 52px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--sky), #B7E4F7);
+    box-shadow: 0 0 16px rgba(99,205,217,.55);
+    transition: transform .32s cubic-bezier(.5,1.6,.5,1);
+  }
+  .lang-toggle[data-lang="en"] .lang-thumb { transform: translateX(52px); }
+  .lang-btn {
+    position: relative; z-index: 2;
+    width: 52px; text-align: center;
+    font-weight: 700; font-size: 12.5px; letter-spacing: .08em;
+    padding: 7px 0; background: transparent; color: var(--sky);
+    transition: color .28s ease;
+  }
+  .lang-btn.active { color: var(--navy); }
+
+  section { max-width: 1140px; margin: 0 auto; padding: 8px 22px 78px; }
+
+  /* ============ HERO ============ */
+  .hero-section { max-width: 100%; padding: 0; position: relative; overflow: hidden; }
+  .hero-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 440px at 50% 0, rgba(99,205,217,.18) 0%, rgba(23,137,168,.09) 40%, transparent);
+    mask-image: linear-gradient(to bottom, black 30%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: .35;
+    background-image:
+      linear-gradient(rgba(99,205,217,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,205,217,.07) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse 70% 55% at 50% 0, black, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 0, black, transparent);
+  }
+  .hero-inner { position: relative; max-width: 880px; margin: 0 auto; padding: 76px 22px 78px; text-align: center; }
+
+  /* Hero ATLAS emblem (foto 3 request) */
+  .hero-emblem {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 14px;
+    margin-bottom: 8px;
+  }
+  .emblem-badge { position: relative; }
+  .emblem-badge .halo {
+    position: absolute; inset: -14px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(12,149,99,.28), transparent 65%);
+    animation: haloBreathe 3.6s ease-in-out infinite;
+  }
+  @keyframes haloBreathe { 0%,100% { transform: scale(.92); opacity:.7; } 50% { transform: scale(1.12); opacity:1; } }
+  .emblem-word {
+    font-family: 'Cinzel', serif; font-weight: 600;
+    font-size: clamp(30px, 5.5vw, 46px); letter-spacing: .22em;
+    color: #fff; margin-left: .22em;
+    text-shadow: 0 0 32px rgba(99,205,217,.4);
+  }
+  .kicker {
+    display: inline-block; color: var(--orange); font-weight: 700; font-size: 12.5px;
+    letter-spacing: .2em; text-transform: uppercase; border: 1px solid rgba(244,90,32,.45);
+    border-radius: 999px; padding: 7px 18px; background: rgba(244,90,32,.08);
+  }
+  .kicker.light {
+    color: var(--sky); border-color: transparent; background: none;
+    padding: 0; text-align: center; display: block; font-size: 13px; letter-spacing: .16em;
+  }
+  h1.hero-title {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(38px,7vw,66px); line-height: 1.06; margin: 26px 0 20px;
+  }
+  .hero-sub { color: var(--sky); font-size: clamp(16px,2.4vw,19px); line-height: 1.6; max-width: 650px; margin: 0 auto 34px; }
+  .cta-btn {
+    position: relative; display: inline-block; background: var(--orange); color: var(--navy);
+    font-weight: 700; font-size: 17px; padding: 15px 32px; border-radius: 14px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 6px 22px rgba(244,90,32,.28);
+  }
+  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(244,90,32,.42); }
+
+  h2.section-title {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(26px,4.5vw,38px);
+    text-align: center; margin: 12px auto 10px; max-width: 660px;
+  }
+  .section-sub { color: var(--sky); text-align: center; font-size: 16px; line-height: 1.6; max-width: 570px; margin: 0 auto 32px; }
+
+  /* ============ PROBLEM CARDS ============ */
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; margin-top: 36px; }
+  .pain-card {
+    background: #FDFEFE; color: var(--navy); border-radius: 18px; padding: 22px 20px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .pain-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(4,20,32,.3); }
+  .pain-icon { width: 42px; height: 42px; border-radius: 12px; background: #EAF4FA; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px; }
+  .pain-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 6px; }
+  .pain-desc { color: #4A6B80; font-size: 14.5px; line-height: 1.55; }
+
+  /* ============ CHAT ============ */
+  .chat-card { max-width: 780px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 26px 64px rgba(4,20,32,.48); color: var(--navy); }
+  .chat-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid #E7F0F5; }
+  .chat-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(180deg,#CFF3E6,#0C9563); display: flex; align-items: center; justify-content: center; flex: none; }
+  .chat-avatar .d { width: 9px; height: 9px; background: linear-gradient(180deg,#96B4FF,#141D59); transform: rotate(45deg); border-radius: 1.5px; }
+  .chat-title { color: var(--navy); font-weight: 700; font-size: 15px; font-family: 'Space Grotesk', sans-serif; }
+  .chat-verified { display: flex; align-items: center; gap: 5px; color: #1D9E75; font-size: 12.5px; font-weight: 600; margin-top: 2px; }
+  .chat-verified .check { display: inline-flex; width: 14px; height: 14px; border-radius: 50%; background: #1D9E75; color: #fff; align-items: center; justify-content: center; font-size: 9px; }
+  .city-tabs { display: flex; gap: 8px; padding: 14px 20px 4px; flex-wrap: wrap; }
+  .city-tab { background: #EAF4FA; color: var(--blue); font-weight: 600; font-size: 13px; padding: 8px 16px; border-radius: 999px; transition: all .2s ease; }
+  .city-tab:hover { background: #DBEDF7; }
+  .city-tab.active { background: var(--navy); color: #fff; }
+  .chat-window { height: 400px; overflow-y: auto; background: #F2F7FA; margin: 14px 0 0; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .msg-row { display: flex; gap: 8px; align-items: flex-end; }
+  .msg-row.user { justify-content: flex-end; }
+  .msg-avatar { width: 26px; height: 26px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; background-color: #2E468C; }
+  .msg-avatar .d { width: 7px; height: 7px; transform: rotate(45deg); border-radius: 1px; background: linear-gradient(180deg,#FFFFFF,#0C9563); }
+  /* NOTE: no emoji-font class here — text renders in Inter, emojis fall back automatically */
+  .bubble {
+    border-radius: 16px; padding: 12px 16px; font-size: 14.5px; line-height: 1.55;
+    max-width: 78%; white-space: pre-line; text-align: left;
+    word-spacing: normal; letter-spacing: normal; font-variant-numeric: normal;
+    animation: bubbleIn .28s ease both;
+  }
+  @keyframes bubbleIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .bubble.bot { background: #fff; border: 1px solid #DCE9F0; border-radius: 16px 16px 16px 4px; }
+  .bubble.user { background: var(--blue); color: #fff; border-radius: 16px 16px 4px 16px; }
+  .chips { display: flex; gap: 8px; padding: 14px 20px 4px; flex-wrap: wrap; border-top: 1px solid #E7F0F5; }
+  .chip { background: #fff; border: 1.5px solid #CFE3EE; color: var(--blue); font-weight: 600; font-size: 13px; padding: 8px 13px; border-radius: 999px; transition: all .18s ease; }
+  .chip:hover { background: #EAF4FA; border-color: var(--blue); transform: translateY(-1px); }
+  .chat-input-row { display: flex; gap: 10px; padding: 14px 20px 8px; }
+  .chat-input { flex: 1; min-width: 0; border: 1.5px solid #CFE3EE; border-radius: 12px; padding: 12px 14px; font-size: 15px; color: var(--navy); background: #FBFDFE; outline: none; }
+  .chat-input:focus { border-color: var(--blue); }
+  .send-btn { background: var(--orange); color: var(--navy); border-radius: 12px; padding: 12px 22px; font-weight: 700; font-size: 15px; transition: transform .15s ease; }
+  .send-btn:hover { transform: translateY(-1px); }
+  .chat-disclaimer { text-align: center; color: #9BB2C1; font-size: 12px; padding: 4px 20px 16px; }
+  .typing-bubble { background: #fff; border: 1px solid #DCE9F0; border-radius: 16px 16px 16px 4px; padding: 12px 16px; display: flex; gap: 5px; align-items: center; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); display: inline-block; animation: dotB 1.1s infinite; }
+  @keyframes dotB { 0%,100% { opacity:.3; } 50% { opacity:1; } }
+
+  /* ============ CITY CAROUSEL ============ */
+  .carousel-wrap { position: relative; }
+  .carousel-viewport { overflow: hidden; border-radius: 22px; }
+  .carousel-track {
+    display: flex; gap: 18px;
+    transition: transform .6s cubic-bezier(.45,.05,.25,1);
+    will-change: transform;
+  }
+  .city-card {
+    position: relative; border-radius: 20px; overflow: hidden; background: #123F5E;
+    height: 400px; flex: 0 0 auto;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  .city-card:hover { transform: translateY(-6px); box-shadow: 0 22px 48px rgba(4,20,32,.5); }
+  .city-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+  .city-card:hover img { transform: scale(1.07); }
+  .city-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,46,68,.96) 0%, rgba(10,46,68,.38) 46%, rgba(10,46,68,.05) 72%); }
+  .city-badge {
+    position: absolute; top: 14px; right: 14px; color: var(--navy); font-weight: 700; font-size: 11.5px;
+    padding: 6px 13px; border-radius: 999px; background: var(--orange);
+    box-shadow: 0 4px 14px rgba(244,90,32,.4);
+  }
+  .city-badge.live { background: linear-gradient(135deg, #17B57C, #0C9563); color: #06301A; }
+  .city-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px; }
+  .city-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 27px; }
+  .city-tag { color: #fff; opacity: .93; font-size: 14px; margin: 4px 0 8px; }
+  .city-land { color: var(--sky); font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+
+  .carousel-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 46px; height: 46px; border-radius: 50%; z-index: 10;
+    background: rgba(10,46,68,.8); backdrop-filter: blur(10px);
+    border: 1px solid rgba(99,205,217,.4); color: var(--sky);
+    display: flex; align-items: center; justify-content: center; font-size: 19px;
+    transition: all .2s ease;
+  }
+  .carousel-nav:hover { background: var(--sky); color: var(--navy); border-color: var(--sky); box-shadow: 0 0 20px rgba(99,205,217,.5); }
+  .carousel-nav.prev { left: -8px; }
+  .carousel-nav.next { right: -8px; }
+  .carousel-dots { display: flex; gap: 7px; justify-content: center; margin-top: 22px; }
+  .cdot { width: 8px; height: 8px; border-radius: 999px; background: rgba(99,205,217,.28); transition: all .3s ease; }
+  .cdot.active { width: 26px; background: var(--sky); }
+
+  /* ============ WAITLIST ============ */
+  .waitlist-box {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg,#0F3E5C,#14486B);
+    border: 1px solid rgba(99,205,217,.22); border-radius: 26px;
+    padding: clamp(32px,6vw,58px) 24px; text-align: center;
+  }
+  .waitlist-box::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle 400px at 20% 0, rgba(12,149,99,.12), transparent),
+                radial-gradient(circle 400px at 85% 100%, rgba(244,90,32,.12), transparent);
+  }
+  .waitlist-box > * { position: relative; }
+  .waitlist-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .waitlist-input { flex: 1; min-width: 240px; max-width: 360px; border: 1.5px solid rgba(99,205,217,.4); border-radius: 13px; padding: 14px 16px; font-size: 15px; color: var(--navy); background: #fff; outline: none; }
+  .waitlist-input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(99,205,217,.18); }
+  .waitlist-btn { background: var(--orange); color: var(--navy); border-radius: 13px; padding: 14px 28px; font-weight: 700; font-size: 16px; transition: transform .15s ease, box-shadow .15s ease; }
+  .waitlist-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(244,90,32,.38); }
+  .waitlist-success { display: none; align-items: center; gap: 12px; background: rgba(29,158,117,.16); border: 1px solid rgba(51,187,153,.5); border-radius: 16px; padding: 16px 22px; text-align: left; }
+  .waitlist-success.show { display: inline-flex; animation: bubbleIn .35s ease both; }
+  .check-circle { width: 34px; height: 34px; border-radius: 50%; background: #1D9E75; display: flex; align-items: center; justify-content: center; font-size: 16px; flex: none; }
+
+  /* ============ FOOTER ============ */
+  footer.site-footer { border-top: 1px solid rgba(99,205,217,.14); }
+  .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .footer-logo-wrap { display: flex; align-items: center; gap: 10px; }
+  .footer-brand-title { font-family: 'Cinzel', serif; font-weight: 600; font-size: 16px; letter-spacing: .08em; }
+  .footer-brand-tag { color: var(--sky); font-size: 12px; }
+  .footer-rights { color: var(--sky); font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .carousel-nav.prev { left: 2px; }
+    .carousel-nav.next { right: 2px; }
+    .bubble { max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <div class="atlas-mark">
+        <div class="ring-pulse"></div>
+        <svg width="38" height="38" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="mt5cHdr" x1="30" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#7c828a"></stop><stop offset="0.12" stop-color="#f5f7f9"></stop><stop offset="0.3" stop-color="#9ba1a8"></stop><stop offset="0.46" stop-color="#e8ebee"></stop><stop offset="0.62" stop-color="#8e949b"></stop><stop offset="0.8" stop-color="#f5f7f9"></stop><stop offset="1" stop-color="#83898f"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M100 18 L152 146 H128.5 L100 74 L71.5 146 H48 Z M100 96 L114 132 L100 146 L86 132 Z" fill="url(#mt5cHdr)" fill-rule="evenodd"></path>
+          <path d="M100 152 L110 161 L100 170 L90 161 Z" fill="url(#mt5cHdr)"></path>
+          <path d="M48 158 H80 V164 H48 Z M120 158 H152 V164 H120 Z" fill="url(#mt5cHdr)"></path>
+        </svg>
+      </div>
+      <div class="logo-word">ATLAS</div>
+    </div>
+    <div class="lang-toggle" id="langToggle" data-lang="es">
+      <div class="lang-thumb"></div>
+      <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero-section">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+
+    <!-- ATLAS emblem (foto 3) -->
+    <div class="hero-emblem">
+      <div class="emblem-badge">
+        <div class="halo"></div>
+        <svg width="100" height="100" viewBox="0 0 200 200" fill="none" aria-hidden="true" style="position:relative">
+          <defs>
+            <linearGradient id="mt5cHero" x1="30" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#7c828a"></stop><stop offset="0.12" stop-color="#f5f7f9"></stop><stop offset="0.3" stop-color="#9ba1a8"></stop><stop offset="0.46" stop-color="#e8ebee"></stop><stop offset="0.62" stop-color="#8e949b"></stop><stop offset="0.8" stop-color="#f5f7f9"></stop><stop offset="1" stop-color="#83898f"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M100 18 L152 146 H128.5 L100 74 L71.5 146 H48 Z M100 96 L114 132 L100 146 L86 132 Z" fill="url(#mt5cHero)" fill-rule="evenodd"></path>
+          <path d="M100 152 L110 161 L100 170 L90 161 Z" fill="url(#mt5cHero)"></path>
+          <path d="M48 158 H80 V164 H48 Z M120 158 H152 V164 H120 Z" fill="url(#mt5cHero)"></path>
+        </svg>
+      </div>
+      <div class="emblem-word">ATLAS</div>
+    </div>
+
+    <div class="kicker" style="margin-top:18px">YOUR BRO IN EVERY CITY</div>
+    <h1 class="hero-title" data-i18n="heroTitle"></h1>
+    <p class="hero-sub" data-i18n="heroSub"></p>
+    <a href="#demo" class="cta-btn" data-i18n="heroCta"></a>
+  </div>
+</div>
+
+<section>
+  <div class="kicker light" data-i18n="probLabel"></div>
+  <h2 class="section-title" data-i18n="probTitle"></h2>
+  <div class="pain-grid" id="painGrid"></div>
+</section>
+
+<section id="demo">
+  <div class="kicker light" data-i18n="demoLabel"></div>
+  <h2 class="section-title" data-i18n="demoTitle"></h2>
+  <p class="section-sub" data-i18n="demoSub"></p>
+
+  <div class="chat-card">
+    <div class="chat-head">
+      <div class="chat-avatar"><div class="d"></div></div>
+      <div style="min-width:0">
+        <div class="chat-title">ATLAS · <span data-i18n="chatWith"></span> <span id="chatCityName">París</span></div>
+        <div class="chat-verified"><span class="check">✓</span><span data-i18n="verified"></span></div>
+      </div>
+    </div>
+    <div class="city-tabs" id="cityTabs"></div>
+    <div class="chat-window" id="chatWindow"></div>
+    <div class="chips" id="chips"></div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="draftInput" data-i18n-ph="inputPh" placeholder="">
+      <button class="send-btn" data-i18n="send" onclick="sendDraft()"></button>
+    </div>
+    <div class="chat-disclaimer" data-i18n="disclaimer"></div>
+  </div>
+</section>
+
+<!-- ============ CITIES CAROUSEL ============ -->
+<section>
+  <div class="kicker light" data-i18n="citiesLabel"></div>
+  <h2 class="section-title" data-i18n="citiesTitle"></h2>
+  <p class="section-sub" data-i18n="citiesSub"></p>
+
+  <div class="carousel-wrap">
+    <button class="carousel-nav prev" onclick="carouselMove(-1)" aria-label="Anterior">‹</button>
+    <div class="carousel-viewport" id="carouselViewport">
+      <div class="carousel-track" id="carouselTrack"></div>
+    </div>
+    <button class="carousel-nav next" onclick="carouselMove(1)" aria-label="Siguiente">›</button>
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<section>
+  <div class="waitlist-box">
+    <h2 class="section-title" style="margin-bottom:12px" data-i18n="wlTitle"></h2>
+    <p class="section-sub" data-i18n="wlSub"></p>
+    <div class="waitlist-form" id="wlForm">
+      <input class="waitlist-input" id="emailInput" data-i18n-ph="wlPh" placeholder="">
+      <button class="waitlist-btn" data-i18n="wlBtn" onclick="submitEmail()"></button>
+    </div>
+    <div class="waitlist-success" id="wlSuccess">
+      <div class="check-circle">✓</div>
+      <div>
+        <div style="font-weight:700;font-size:16px" data-i18n="wlOkT"></div>
+        <div style="color:#63CDD9;font-size:14px" data-i18n="wlOkD"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-wrap">
+      <svg width="30" height="30" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="mt5cFoot" x1="30" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#7c828a"></stop><stop offset="0.12" stop-color="#f5f7f9"></stop><stop offset="0.3" stop-color="#9ba1a8"></stop><stop offset="0.46" stop-color="#e8ebee"></stop><stop offset="0.62" stop-color="#8e949b"></stop><stop offset="0.8" stop-color="#f5f7f9"></stop><stop offset="1" stop-color="#83898f"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M100 18 L152 146 H128.5 L100 74 L71.5 146 H48 Z M100 96 L114 132 L100 146 L86 132 Z" fill="url(#mt5cFoot)" fill-rule="evenodd"></path>
+        <path d="M100 152 L110 161 L100 170 L90 161 Z" fill="url(#mt5cFoot)"></path>
+        <path d="M48 158 H80 V164 H48 Z M120 158 H152 V164 H120 Z" fill="url(#mt5cFoot)"></path>
+      </svg>
+      <div>
+        <div class="footer-brand-title">ATLAS</div>
+        <div class="footer-brand-tag">Your bro in every city</div>
+      </div>
+    </div>
+    <div class="footer-rights"><span data-i18n="footRights"></span></div>
+    <div class="lang-toggle" id="langToggleFooter" data-lang="es">
+      <div class="lang-thumb"></div>
+      <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+const T = {
+  es: {
+    heroTitle: "Toda la ciudad, en una conversación.",
+    heroSub: "¿Llegas de turista y no sabes ni dónde comer? No te preocupes, soy ATLAS, tu compa local — te digo dónde comer, qué hacer y cómo moverte. Al instante, en tu idioma y sin letra pequeña.",
+    heroCta: "Pa' dónde vamos?",
+    probLabel: "EL PROBLEMA",
+    probTitle: "Viajar no debería sentirse como un trámite",
+    pains: [
+      { i:"📱", t:"7+ apps por viaje", d:"Mapas, reseñas, traductor, metro, reservas... y aun así terminas perdido." },
+      { i:"⏳", t:"Horas de planeación", d:"Blogs eternos, foros del 2019 y listas que nunca aterrizan en un plan." },
+      { i:"🖼️", t:"Info vencida", d:"Ese sitio “imperdible” cerró hace seis meses. Nadie te avisó." },
+      { i:"💭", t:"Barrera de idioma", d:"Preguntar algo simple se convierte en una escena de mímica." }
+    ],
+    demoLabel: "DEMO DE CHAT",
+    demoTitle: "Pregúntale lo que sea. Como a un amigo.",
+    demoSub: "Elige ciudad y habla con ATLAS: restaurantes, transporte, noche, urgencias. Te tira la ruta al momento.",
+    chatWith: "tu compa en",
+    verified: "Pana local verificado",
+    inputPh: "Pregúntame lo que sea...",
+    send: "Enviar",
+    disclaimer: "Demo con datos simulados — el producto real corre con información local al día.",
+    citiesLabel: "DESTINOS",
+    citiesTitle: "Ciudades ATLAS",
+    citiesSub: "Empezamos con tres y no paramos. Desliza para ver a dónde llegamos.",
+    soon: "Próximamente",
+    live: "Disponible",
+    wlTitle: "¿Un compa en tu próximo viaje?",
+    wlSub: "Déjanos tu correo y te avisamos cuando ATLAS aterrice en tu ciudad.",
+    wlPh: "tu@correo.com",
+    wlBtn: "Me interesa",
+    wlOkT: "¡Listo!",
+    wlOkD: "Te avisamos apenas ATLAS llegue a tu ciudad.",
+    footRights: "© 2026 ATLAS · MBO Consolidated",
+    typingLabel: "escribiendo...",
+    chips: [
+      { icon:"🍜", label:"¿Dónde ceno rico y barato?" },
+      { icon:"🚕", label:"Aeropuerto → centro, ¿cómo?" },
+      { icon:"🍸", label:"Plan para esta noche" },
+      { icon:"☀️", label:"Un día perfecto aquí" },
+      { icon:"💊", label:"Necesito una farmacia" }
+    ]
+  },
+  en: {
+    heroTitle: "The whole city, in one conversation.",
+    heroSub: "You just landed and don't even know where to eat? Chill pill, I'm ATLAS, your local bro — I tell you where to eat, what to do and how to get around. Instantly, in your language, no fine print.",
+    heroCta: "The world, one tap away",
+    probLabel: "THE PROBLEM",
+    probTitle: "Travel shouldn't feel like paperwork",
+    pains: [
+      { i:"📱", t:"7+ apps per trip", d:"Maps, reviews, translator, metro, bookings... and you still end up lost." },
+      { i:"⏳", t:"Hours of planning", d:"Endless blogs, forums from 2019 and lists that never become a plan." },
+      { i:"🖼️", t:"Stale info", d:"That “unmissable” spot closed six months ago. Nobody told you." },
+      { i:"💭", t:"Language barrier", d:"Asking something simple turns into a game of charades." }
+    ],
+    demoLabel: "CHAT DEMO",
+    demoTitle: "Ask it anything. Like a friend.",
+    demoSub: "Pick a city and talk to ATLAS: food, transit, nightlife, emergencies. Instant local intel.",
+    chatWith: "your bro in",
+    verified: "Verified local bro",
+    inputPh: "Ask me anything...",
+    send: "Send",
+    disclaimer: "Demo with simulated data — the real product runs on fresh local intel.",
+    citiesLabel: "DESTINATIONS",
+    citiesTitle: "ATLAS cities",
+    citiesSub: "We start with three and we don't stop. Swipe to see where we're landing.",
+    soon: "Coming soon",
+    live: "Available",
+    wlTitle: "Want a bro on your next trip?",
+    wlSub: "Drop your email and we'll ping you when ATLAS lands in your city.",
+    wlPh: "you@email.com",
+    wlBtn: "Count me in",
+    wlOkT: "You're in!",
+    wlOkD: "We'll ping you the moment ATLAS lands in your city.",
+    footRights: "© 2026 ATLAS · MBO Consolidated",
+    typingLabel: "typing...",
+    chips: [
+      { icon:"🍜", label:"Where do I eat well & cheap?" },
+      { icon:"🚕", label:"Airport → downtown, how?" },
+      { icon:"🍸", label:"Tonight's plan" },
+      { icon:"☀️", label:"One perfect day here" },
+      { icon:"💊", label:"I need a pharmacy" }
+    ]
+  }
+};
+
+/* Chat cities: only the 3 originals */
+const CHAT_CITIES = [
+  {
+    id: "paris", nameEs: "París", nameEn: "Paris",
+    convo: {
+      es: [
+        { user:"¿Dónde como rico cerca del Louvre por menos de €30?" },
+        { bot:"Yo te recomiendo estas tres, si no te convencen revisamos otras.\n\n🦆 Bistrot Vivienne. Menú por 26€, cierran a las 23:00 y el confit de pato está buenísimo.\n🍷 Chez Janou. Comida provenzal de verdad, platos entre 19 y 24€. Y ojo con la mousse de chocolate...\n🍇 Juveniles. Más tranqui, buena barra de vinos y plato del día por 22€. Perfecto si quieres comer bien sin mucha vuelta.\n\nDecime cuál te llama más y te paso el menú, te digo qué pedir y, si quieres, hasta te ayudo a reservar." }
+      ],
+      en: [
+        { user:"I'm lost and starving at Louvre. Help me out, I have €30" },
+        { bot:"Got your back bro:\n\n🦆 Bistrot Vivienne — €26 set menu, open till 23:00, get the confit.\n🍷 Chez Janou — Provençal, mains €19-24, the chocolate mousse is illegally good.\n🍇 Juveniles — wine bar, €22 daily plate.\n\nPro tip: book Janou, it fills up by 20:00.\n\nI'm already looking for the fastest route." }
+      ]
+    }
+  },
+  {
+    id: "madrid", nameEs: "Madrid", nameEn: "Madrid",
+    convo: {
+      es: [
+        { user:"Recomendame tapas buenas cerca de la Puerta del Sol sin caer en trampa de turistas" },
+        { bot:"Te salvo 😅:\n🐷 Casa Toni — oreja y callos, raciones 6–9€.\n🦑 La Campana — bocata de calamares 4,50€, el clásico.\n🥃 Bodega de la Ardosa — vermut de grifo 3€, tortilla top.\n\nOjo: si el menú tiene fotos y 6 idiomas, adiós.\n\n¿Quieres la ruta en Waze o Google Maps?" }
+      ],
+      en: [
+        { user:"Take me to the best tapas near La Puerta del Sol without falling into a tourist trap?" },
+        { bot:"Let me save you 😅:\n🐷 Casa Toni — pig ear & callos, plates €6-9.\n🦑 La Campana — calamari sandwich €4.50, the classic.\n🥃 Bodega de la Ardosa — tap vermouth €3, top-tier tortilla.\n\nPro tip: menu with photos in 6 languages? Run.\n\nWant the Waze or Google Maps route?" }
+      ]
+    }
+  },
+  {
+    id: "roma", nameEs: "Roma", nameEn: "Rome",
+    convo: {
+      es: [
+        { user:"Llevame a la mejor carbonara de Trastevere" },
+        { bot:"Te tiro la ruta:\n🐷 Da Enzo al 29 — carbonara 13€, llega 19:15 o haces fila.\n🍝 Tonnarello — porciones bestias, 11–14€.\n🦪 Osteria der Belli — si quieres variar, mariscos frescos.\nRemate: cruza el Ponte Sisto al atardecer y gelato en Fior di Luna.\n\n¿A qué hora te pongo la reserva?" }
+      ],
+      en: [
+        { user:"Where do I eat the best carbonara in Trastevere?" },
+        { bot:"Here is the route:\n🐷 Da Enzo al 29 — carbonara €13, arrive 19:15 or queue.\n🍝 Tonnarello — huge portions, €11-14.\n🦪 Osteria der Belli — fresh seafood if you want a change.\nFinish: cross Ponte Sisto at sunset, gelato at Fior di Luna.\n\nSome guanciale for today?" }
+      ]
+    }
+  }
+];
+
+/* Carousel destinations: many more, photos only */
+const DESTINATIONS = [
+  { nameEs:"París", nameEn:"Paris", img:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del café de la mañana al último metro.", tagEn:"From morning café to the last métro.",
+    land:"Torre Eiffel · Le Marais · Sena", live:true },
+  { nameEs:"Madrid", nameEn:"Madrid", img:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la primera tapa al último cierre.", tagEn:"From first tapa to final round.",
+    land:"Gran Vía · Sol · La Latina", live:true },
+  { nameEs:"Roma", nameEn:"Rome", img:"https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del espresso a la trattoria escondida.", tagEn:"From espresso to the hidden trattoria.",
+    land:"Coliseo · Trastevere · Vaticano", live:true },
+  { nameEs:"Barcelona", nameEn:"Barcelona", img:"https://images.unsplash.com/photo-1583422409516-2895a77efded?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la playa al vermut de barrio.", tagEn:"From the beach to the neighborhood vermouth.",
+    land:"Sagrada Familia · Gòtic · Born" },
+  { nameEs:"Lisboa", nameEn:"Lisbon", img:"https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del mirador al fado de medianoche.", tagEn:"From the viewpoint to midnight fado.",
+    land:"Alfama · Belém · Bairro Alto" },
+  { nameEs:"Tokio", nameEn:"Tokyo", img:"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del ramen del callejón al último tren.", tagEn:"From the alley ramen to the last train.",
+    land:"Shibuya · Shinjuku · Asakusa" },
+  { nameEs:"Nueva York", nameEn:"New York", img:"https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del bagel de la esquina al rooftop.", tagEn:"From the corner bagel to the rooftop.",
+    land:"Manhattan · Brooklyn · Queens" },
+  { nameEs:"Buenos Aires", nameEn:"Buenos Aires", img:"https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del café de Palermo a la parrilla.", tagEn:"From a Palermo café to the parrilla.",
+    land:"Palermo · San Telmo · Recoleta" },
+  { nameEs:"Ámsterdam", nameEn:"Amsterdam", img:"https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del canal en bici al café escondido.", tagEn:"From a canal bike ride to the hidden café.",
+    land:"Jordaan · Canales · De Pijp" },
+  { nameEs:"Ciudad de México", nameEn:"Mexico City", img:"https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del taco de la esquina al mezcal.", tagEn:"From the corner taco to the mezcal.",
+    land:"Condesa · Roma · Coyoacán" },
+  { nameEs:"Londres", nameEn:"London", img:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del pub de siempre al mercado.", tagEn:"From the classic pub to the market.",
+    land:"Soho · Shoreditch · Camden" },
+  { nameEs:"Cartagena", nameEn:"Cartagena", img:"https://images.unsplash.com/photo-1666977461267-c0e924696510?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la muralla al atardecer caribe.", tagEn:"From the old walls to the Caribbean sunset.",
+    land:"Ciudad Amurallada · Getsemaní · Bocagrande" },
+  { nameEs:"Nairobi", nameEn:"Nairobi", img:"https://images.unsplash.com/photo-1745526180300-443ef46e6a73?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la ciudad al safari al amanecer.", tagEn:"From the city to a sunrise safari.",
+    land:"Masái Mara · Amboseli · Nairobi NP" },
+  { nameEs:"Giza", nameEn:"Giza", img:"https://images.unsplash.com/photo-1754400534733-06ba59423253?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De las pirámides al bazar del Nilo.", tagEn:"From the pyramids to the Nile bazaar.",
+    land:"Pirámides · Esfinge · El Cairo" },
+  { nameEs:"Miami", nameEn:"Miami", img:"https://images.unsplash.com/photo-1741023705528-2953cb652705?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la playa a la noche de South Beach.", tagEn:"From the beach to South Beach nights.",
+    land:"South Beach · Wynwood · Little Havana" },
+  { nameEs:"Singapur", nameEn:"Singapore", img:"https://images.unsplash.com/photo-1744705221117-9c726f9497b0?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del hawker centre al skyline de Marina.", tagEn:"From the hawker centre to the Marina skyline.",
+    land:"Marina Bay · Chinatown · Sentosa" },
+  { nameEs:"Dubái", nameEn:"Dubai", img:"https://images.unsplash.com/photo-1748373452031-ee1ae4eb624d?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del zoco al rascacielos más alto.", tagEn:"From the souk to the tallest tower.",
+    land:"Burj Khalifa · Marina · Deira" },
+  { nameEs:"Río de Janeiro", nameEn:"Rio de Janeiro", img:"https://images.unsplash.com/photo-1596573787499-3b6cd45b2ce6?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la playa al mirador del Cristo.", tagEn:"From the beach to the Christ viewpoint.",
+    land:"Copacabana · Ipanema · Lapa" },
+  { nameEs:"Medellín", nameEn:"Medellín", img:"https://images.unsplash.com/photo-1633627425472-d07ac65e2a36?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De los cables a los bares del Poblado.", tagEn:"From the cable cars to El Poblado bars.",
+    land:"El Poblado · Laureles · Centro" },
+  { nameEs:"Cali", nameEn:"Cali", img:"https://images.unsplash.com/photo-1547045960-1cb60706f275?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la salsa al río que no para.", tagEn:"From salsa to the river that never stops.",
+    land:"San Antonio · Granada · Juanchito" },
+  { nameEs:"Marrakech", nameEn:"Marrakech", img:"https://images.unsplash.com/photo-1760681556780-f27bf361131b?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del zoco a la plaza al anochecer.", tagEn:"From the souk to the square at dusk.",
+    land:"Medina · Jemaa el-Fna · Majorelle" },
+  { nameEs:"Islas Griegas", nameEn:"Greek Islands", img:"https://images.unsplash.com/photo-1560703649-e3055f28bcf8?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De las cúpulas azules al mar Egeo.", tagEn:"From the blue domes to the Aegean Sea.",
+    land:"Santorini · Mykonos · Rodas" }
+];
+
+let currentLang = "es";
+let currentCity = "paris";
+let carouselIndex = 0;
+let autoTimer = null;
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll(".lang-toggle").forEach(t => t.dataset.lang = lang);
+  document.querySelectorAll(".lang-btn").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+  render();
+}
+
+function t() { return T[currentLang]; }
+
+function esc(str) {
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");
+}
+
+function render() {
+  const tr = t();
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    if (tr[k] !== undefined) el.textContent = tr[k];
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+    const k = el.getAttribute("data-i18n-ph");
+    if (tr[k] !== undefined) el.placeholder = tr[k];
+  });
+
+  document.getElementById("painGrid").innerHTML = tr.pains.map(p => `
+    <div class="pain-card">
+      <div class="pain-icon">${p.i}</div>
+      <div class="pain-title">${p.t}</div>
+      <div class="pain-desc">${p.d}</div>
+    </div>`).join("");
+
+  document.getElementById("cityTabs").innerHTML = CHAT_CITIES.map(c => `
+    <button class="city-tab ${c.id === currentCity ? 'active' : ''}" onclick="pickCity('${c.id}')">${currentLang==='es'?c.nameEs:c.nameEn}</button>
+  `).join("");
+
+  const cc = CHAT_CITIES.find(c => c.id === currentCity);
+  document.getElementById("chatCityName").textContent = currentLang==='es'?cc.nameEs:cc.nameEn;
+
+  renderChat();
+
+  document.getElementById("chips").innerHTML = tr.chips.map(ch => `
+    <button class="chip" onclick="useChip(this)" data-label="${ch.label.replace(/"/g,'&quot;')}">${ch.icon} ${ch.label}</button>
+  `).join("");
+
+  renderCarousel();
+}
+
+function renderChat() {
+  const city = CHAT_CITIES.find(c => c.id === currentCity);
+  const convo = city.convo[currentLang];
+  const win = document.getElementById("chatWindow");
+  win.innerHTML = convo.map(m => m.user
+    ? `<div class="msg-row user"><div class="bubble user">${esc(m.user)}</div></div>`
+    : `<div class="msg-row"><div class="msg-avatar"><div class="d"></div></div><div class="bubble bot">${esc(m.bot)}</div></div>`
+  ).join("");
+  win.scrollTop = 0;
+}
+
+function pickCity(id) { currentCity = id; render(); }
+
+function useChip(btn) {
+  document.getElementById("draftInput").value = btn.dataset.label;
+  sendDraft();
+}
+
+function sendDraft() {
+  const input = document.getElementById("draftInput");
+  const val = input.value.trim();
+  if (!val) return;
+  const win = document.getElementById("chatWindow");
+  win.insertAdjacentHTML("beforeend", `<div class="msg-row user"><div class="bubble user">${esc(val)}</div></div>`);
+  input.value = "";
+  win.scrollTop = win.scrollHeight;
+
+  win.insertAdjacentHTML("beforeend",
+    `<div class="msg-row typing-temp"><div class="msg-avatar"><div class="d"></div></div><div class="typing-bubble"><span class="dot"></span><span class="dot" style="animation-delay:.15s"></span><span class="dot" style="animation-delay:.3s"></span><span style="color:#7C97A8;font-size:12px;margin-left:4px">${t().typingLabel}</span></div></div>`);
+  win.scrollTop = win.scrollHeight;
+
+  setTimeout(() => {
+    const temp = win.querySelector(".typing-temp");
+    if (temp) temp.remove();
+    const reply = currentLang === "es"
+      ? "Esto es una demo — cuando ATLAS esté disponible en tu ciudad, te contesto esto al instante con info real y actualizada 🤙"
+      : "This is just a demo — once ATLAS is live in your city, I'll answer this instantly with real, up-to-date info 🤙";
+    win.insertAdjacentHTML("beforeend", `<div class="msg-row"><div class="msg-avatar"><div class="d"></div></div><div class="bubble bot">${esc(reply)}</div></div>`);
+    win.scrollTop = win.scrollHeight;
+  }, 900);
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && document.activeElement?.id === "draftInput") sendDraft();
+  if (e.key === "Enter" && document.activeElement?.id === "emailInput") submitEmail();
+});
+
+/* ---------- CAROUSEL ---------- */
+function cardsPerView() {
+  const w = window.innerWidth;
+  if (w < 700) return 1;
+  if (w < 1040) return 2;
+  return 3;
+}
+
+function renderCarousel() {
+  const tr = t();
+  const track = document.getElementById("carouselTrack");
+  const per = cardsPerView();
+  const gap = 18;
+  const vw = document.getElementById("carouselViewport").clientWidth;
+  const cardW = (vw - gap * (per - 1)) / per;
+
+  track.innerHTML = DESTINATIONS.map(c => `
+    <div class="city-card" style="width:${cardW}px">
+      <img src="${c.img}" alt="${currentLang==='es'?c.nameEs:c.nameEn}" loading="lazy" onerror="this.style.display='none'">
+      <div class="city-overlay"></div>
+      <div class="city-badge ${c.live ? 'live' : ''}">${c.live ? tr.live : tr.soon}</div>
+      <div class="city-info">
+        <div class="city-name">${currentLang==='es'?c.nameEs:c.nameEn}</div>
+        <div class="city-tag">${currentLang==='es'?c.tagEs:c.tagEn}</div>
+        <div class="city-land">${c.land}</div>
+      </div>
+    </div>`).join("");
+
+  const pages = Math.max(1, DESTINATIONS.length - per + 1);
+  if (carouselIndex > pages - 1) carouselIndex = 0;
+
+  document.getElementById("carouselDots").innerHTML =
+    Array.from({length: pages}, (_, i) =>
+      `<button class="cdot ${i===carouselIndex?'active':''}" onclick="carouselGo(${i})" aria-label="Slide ${i+1}"></button>`
+    ).join("");
+
+  applyCarousel();
+}
+
+function applyCarousel() {
+  const track = document.getElementById("carouselTrack");
+  const card = track.querySelector(".city-card");
+  if (!card) return;
+  const step = card.offsetWidth + 18;
+  track.style.transform = `translateX(-${carouselIndex * step}px)`;
+  document.querySelectorAll(".cdot").forEach((d,i) => d.classList.toggle("active", i===carouselIndex));
+}
+
+function carouselMove(dir) {
+  const per = cardsPerView();
+  const pages = Math.max(1, DESTINATIONS.length - per + 1);
+  carouselIndex = (carouselIndex + dir + pages) % pages;
+  applyCarousel();
+  restartAuto();
+}
+
+function carouselGo(i) { carouselIndex = i; applyCarousel(); restartAuto(); }
+
+function restartAuto() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(() => carouselMove(1), 4200);
+}
+
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(renderCarousel, 180);
+});
+
+/* Pause auto-rotate on hover */
+document.addEventListener("DOMContentLoaded", () => {
+  const wrap = document.querySelector(".carousel-wrap");
+  wrap.addEventListener("mouseenter", () => clearInterval(autoTimer));
+  wrap.addEventListener("mouseleave", restartAuto);
+});
+
+function submitEmail() {
+  const input = document.getElementById("emailInput");
+  const val = input.value.trim();
+  if (!val || !val.includes("@")) {
+    input.style.borderColor = "#F45A20";
+    return;
+  }
+  document.getElementById("wlForm").style.display = "none";
+  document.getElementById("wlSuccess").classList.add("show");
+}
+
+setLang("es");
+restartAuto();
+</script>
+</body>
+</html>
