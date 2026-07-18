@@ -6,16 +6,16 @@
 <title>ATLAS — Your bro in every city</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Cinzel:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
   :root {
-    --navy: #0A2E44;
-    --navy-2: #0E3A57;
-    --sky: #88CCEE;
-    --blue: #2277BB;
-    --orange: #E88A4B;
-    --green: #26B630;
+    --navy: #0A2A47;
+    --navy-2: #0E3A5E;
+    --sky: #63CDD9;
+    --blue: #1789A8;
+    --orange: #F45A20;
+    --green: #0C9563;
   }
   body {
     margin: 0;
@@ -36,12 +36,12 @@
     background: rgba(10,46,68,.62);
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
-    border-bottom: 1px solid rgba(136,204,238,.16);
+    border-bottom: 1px solid rgba(99,205,217,.16);
   }
   header.site-header::after {
     content: "";
     position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(38,182,48,.9), rgba(136,204,238,.9), rgba(232,138,75,.9), transparent);
+    background: linear-gradient(90deg, transparent, rgba(12,149,99,.9), rgba(99,205,217,.9), rgba(244,90,32,.9), transparent);
     background-size: 200% 100%;
     animation: scanline 6s linear infinite;
   }
@@ -57,7 +57,7 @@
   .atlas-mark { position: relative; flex: none; }
   .atlas-mark .ring-pulse {
     position: absolute; inset: -6px; border-radius: 50%;
-    border: 1px solid rgba(38,182,48,.5);
+    border: 1px solid rgba(12,149,99,.5);
     animation: pulseRing 2.8s ease-out infinite;
   }
   @keyframes pulseRing {
@@ -65,7 +65,7 @@
     100% { transform: scale(1.5); opacity: 0; }
   }
   .logo-word {
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-family: 'Cinzel', serif; font-weight: 600;
     font-size: 22px; letter-spacing: .1em; color: #fff;
     position: relative;
   }
@@ -79,16 +79,16 @@
   /* Futuristic segmented lang toggle */
   .lang-toggle {
     position: relative; display: flex; align-items: center;
-    background: rgba(136,204,238,.08);
-    border: 1px solid rgba(136,204,238,.28);
+    background: rgba(99,205,217,.08);
+    border: 1px solid rgba(99,205,217,.28);
     border-radius: 999px; padding: 4px;
-    box-shadow: inset 0 0 18px rgba(136,204,238,.08);
+    box-shadow: inset 0 0 18px rgba(99,205,217,.08);
   }
   .lang-thumb {
     position: absolute; top: 4px; left: 4px; height: calc(100% - 8px); width: 52px;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--sky), #B7E4F7);
-    box-shadow: 0 0 16px rgba(136,204,238,.55);
+    box-shadow: 0 0 16px rgba(99,205,217,.55);
     transition: transform .32s cubic-bezier(.5,1.6,.5,1);
   }
   .lang-toggle[data-lang="en"] .lang-thumb { transform: translateX(52px); }
@@ -107,15 +107,15 @@
   .hero-section { max-width: 100%; padding: 0; position: relative; overflow: hidden; }
   .hero-glow {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse 900px 440px at 50% 0, rgba(136,204,238,.18) 0%, rgba(34,119,187,.09) 40%, transparent);
+    background: radial-gradient(ellipse 900px 440px at 50% 0, rgba(99,205,217,.18) 0%, rgba(23,137,168,.09) 40%, transparent);
     mask-image: linear-gradient(to bottom, black 30%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent);
   }
   .hero-grid {
     position: absolute; inset: 0; opacity: .35;
     background-image:
-      linear-gradient(rgba(136,204,238,.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(136,204,238,.07) 1px, transparent 1px);
+      linear-gradient(rgba(99,205,217,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,205,217,.07) 1px, transparent 1px);
     background-size: 54px 54px;
     mask-image: radial-gradient(ellipse 70% 55% at 50% 0, black, transparent);
     -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 0, black, transparent);
@@ -130,20 +130,20 @@
   .emblem-badge { position: relative; }
   .emblem-badge .halo {
     position: absolute; inset: -14px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(38,182,48,.28), transparent 65%);
+    background: radial-gradient(circle, rgba(12,149,99,.28), transparent 65%);
     animation: haloBreathe 3.6s ease-in-out infinite;
   }
   @keyframes haloBreathe { 0%,100% { transform: scale(.92); opacity:.7; } 50% { transform: scale(1.12); opacity:1; } }
   .emblem-word {
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-family: 'Cinzel', serif; font-weight: 600;
     font-size: clamp(30px, 5.5vw, 46px); letter-spacing: .22em;
     color: #fff; margin-left: .22em;
-    text-shadow: 0 0 32px rgba(136,204,238,.4);
+    text-shadow: 0 0 32px rgba(99,205,217,.4);
   }
   .kicker {
     display: inline-block; color: var(--orange); font-weight: 700; font-size: 12.5px;
-    letter-spacing: .2em; text-transform: uppercase; border: 1px solid rgba(232,138,75,.45);
-    border-radius: 999px; padding: 7px 18px; background: rgba(232,138,75,.08);
+    letter-spacing: .2em; text-transform: uppercase; border: 1px solid rgba(244,90,32,.45);
+    border-radius: 999px; padding: 7px 18px; background: rgba(244,90,32,.08);
   }
   .kicker.light {
     color: var(--sky); border-color: transparent; background: none;
@@ -158,9 +158,9 @@
     position: relative; display: inline-block; background: var(--orange); color: var(--navy);
     font-weight: 700; font-size: 17px; padding: 15px 32px; border-radius: 14px;
     transition: transform .18s ease, box-shadow .18s ease;
-    box-shadow: 0 6px 22px rgba(232,138,75,.28);
+    box-shadow: 0 6px 22px rgba(244,90,32,.28);
   }
-  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(232,138,75,.42); }
+  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(244,90,32,.42); }
 
   h2.section-title {
     font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(26px,4.5vw,38px);
@@ -182,7 +182,7 @@
   /* ============ CHAT ============ */
   .chat-card { max-width: 780px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 26px 64px rgba(4,20,32,.48); color: var(--navy); }
   .chat-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid #E7F0F5; }
-  .chat-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(180deg,#FFFDE5,#1F9E1B); display: flex; align-items: center; justify-content: center; flex: none; }
+  .chat-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(180deg,#CFF3E6,#0C9563); display: flex; align-items: center; justify-content: center; flex: none; }
   .chat-avatar .d { width: 9px; height: 9px; background: linear-gradient(180deg,#96B4FF,#141D59); transform: rotate(45deg); border-radius: 1.5px; }
   .chat-title { color: var(--navy); font-weight: 700; font-size: 15px; font-family: 'Space Grotesk', sans-serif; }
   .chat-verified { display: flex; align-items: center; gap: 5px; color: #1D9E75; font-size: 12.5px; font-weight: 600; margin-top: 2px; }
@@ -195,7 +195,7 @@
   .msg-row { display: flex; gap: 8px; align-items: flex-end; }
   .msg-row.user { justify-content: flex-end; }
   .msg-avatar { width: 26px; height: 26px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; background-color: #2E468C; }
-  .msg-avatar .d { width: 7px; height: 7px; transform: rotate(45deg); border-radius: 1px; background: linear-gradient(180deg,#FFFFFF,#33A82D); }
+  .msg-avatar .d { width: 7px; height: 7px; transform: rotate(45deg); border-radius: 1px; background: linear-gradient(180deg,#FFFFFF,#0C9563); }
   /* NOTE: no emoji-font class here — text renders in Inter, emojis fall back automatically */
   .bubble {
     border-radius: 16px; padding: 12px 16px; font-size: 14.5px; line-height: 1.55;
@@ -239,9 +239,9 @@
   .city-badge {
     position: absolute; top: 14px; right: 14px; color: var(--navy); font-weight: 700; font-size: 11.5px;
     padding: 6px 13px; border-radius: 999px; background: var(--orange);
-    box-shadow: 0 4px 14px rgba(232,138,75,.4);
+    box-shadow: 0 4px 14px rgba(244,90,32,.4);
   }
-  .city-badge.live { background: linear-gradient(135deg, #33D17A, #26B630); color: #06301A; }
+  .city-badge.live { background: linear-gradient(135deg, #17B57C, #0C9563); color: #06301A; }
   .city-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px; }
   .city-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 27px; }
   .city-tag { color: #fff; opacity: .93; font-size: 14px; margin: 4px 0 8px; }
@@ -251,44 +251,44 @@
     position: absolute; top: 50%; transform: translateY(-50%);
     width: 46px; height: 46px; border-radius: 50%; z-index: 10;
     background: rgba(10,46,68,.8); backdrop-filter: blur(10px);
-    border: 1px solid rgba(136,204,238,.4); color: var(--sky);
+    border: 1px solid rgba(99,205,217,.4); color: var(--sky);
     display: flex; align-items: center; justify-content: center; font-size: 19px;
     transition: all .2s ease;
   }
-  .carousel-nav:hover { background: var(--sky); color: var(--navy); border-color: var(--sky); box-shadow: 0 0 20px rgba(136,204,238,.5); }
+  .carousel-nav:hover { background: var(--sky); color: var(--navy); border-color: var(--sky); box-shadow: 0 0 20px rgba(99,205,217,.5); }
   .carousel-nav.prev { left: -8px; }
   .carousel-nav.next { right: -8px; }
   .carousel-dots { display: flex; gap: 7px; justify-content: center; margin-top: 22px; }
-  .cdot { width: 8px; height: 8px; border-radius: 999px; background: rgba(136,204,238,.28); transition: all .3s ease; }
+  .cdot { width: 8px; height: 8px; border-radius: 999px; background: rgba(99,205,217,.28); transition: all .3s ease; }
   .cdot.active { width: 26px; background: var(--sky); }
 
   /* ============ WAITLIST ============ */
   .waitlist-box {
     position: relative; overflow: hidden;
     background: linear-gradient(135deg,#0F3E5C,#14486B);
-    border: 1px solid rgba(136,204,238,.22); border-radius: 26px;
+    border: 1px solid rgba(99,205,217,.22); border-radius: 26px;
     padding: clamp(32px,6vw,58px) 24px; text-align: center;
   }
   .waitlist-box::before {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle 400px at 20% 0, rgba(38,182,48,.12), transparent),
-                radial-gradient(circle 400px at 85% 100%, rgba(232,138,75,.12), transparent);
+    background: radial-gradient(circle 400px at 20% 0, rgba(12,149,99,.12), transparent),
+                radial-gradient(circle 400px at 85% 100%, rgba(244,90,32,.12), transparent);
   }
   .waitlist-box > * { position: relative; }
   .waitlist-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .waitlist-input { flex: 1; min-width: 240px; max-width: 360px; border: 1.5px solid rgba(136,204,238,.4); border-radius: 13px; padding: 14px 16px; font-size: 15px; color: var(--navy); background: #fff; outline: none; }
-  .waitlist-input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(136,204,238,.18); }
+  .waitlist-input { flex: 1; min-width: 240px; max-width: 360px; border: 1.5px solid rgba(99,205,217,.4); border-radius: 13px; padding: 14px 16px; font-size: 15px; color: var(--navy); background: #fff; outline: none; }
+  .waitlist-input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(99,205,217,.18); }
   .waitlist-btn { background: var(--orange); color: var(--navy); border-radius: 13px; padding: 14px 28px; font-weight: 700; font-size: 16px; transition: transform .15s ease, box-shadow .15s ease; }
-  .waitlist-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(232,138,75,.38); }
+  .waitlist-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(244,90,32,.38); }
   .waitlist-success { display: none; align-items: center; gap: 12px; background: rgba(29,158,117,.16); border: 1px solid rgba(51,187,153,.5); border-radius: 16px; padding: 16px 22px; text-align: left; }
   .waitlist-success.show { display: inline-flex; animation: bubbleIn .35s ease both; }
   .check-circle { width: 34px; height: 34px; border-radius: 50%; background: #1D9E75; display: flex; align-items: center; justify-content: center; font-size: 16px; flex: none; }
 
   /* ============ FOOTER ============ */
-  footer.site-footer { border-top: 1px solid rgba(136,204,238,.14); }
+  footer.site-footer { border-top: 1px solid rgba(99,205,217,.14); }
   .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .footer-logo-wrap { display: flex; align-items: center; gap: 10px; }
-  .footer-brand-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: .08em; }
+  .footer-brand-title { font-family: 'Cinzel', serif; font-weight: 600; font-size: 16px; letter-spacing: .08em; }
   .footer-brand-tag { color: var(--sky); font-size: 12px; }
   .footer-rights { color: var(--sky); font-size: 13px; }
 
@@ -306,15 +306,15 @@
     <div class="logo-wrap">
       <div class="atlas-mark">
         <div class="ring-pulse"></div>
-        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 200 200" fill="none" aria-hidden="true">
           <defs>
-            <linearGradient id="hdrRing" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#26B630"/><stop offset="100%" stop-color="#88CCEE"/>
+            <linearGradient id="mt5cHdr" x1="30" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#7c828a"></stop><stop offset="0.12" stop-color="#f5f7f9"></stop><stop offset="0.3" stop-color="#9ba1a8"></stop><stop offset="0.46" stop-color="#e8ebee"></stop><stop offset="0.62" stop-color="#8e949b"></stop><stop offset="0.8" stop-color="#f5f7f9"></stop><stop offset="1" stop-color="#83898f"></stop>
             </linearGradient>
           </defs>
-          <rect x="1.5" y="1" width="35" height="35" rx="11" fill="#0E3A57" stroke="url(#hdrRing)" stroke-width="1.6"/>
-          <circle cx="19" cy="18.5" r="10.5" fill="none" stroke="#CFEFFF" stroke-width="2"/>
-          <rect x="15.6" y="15.1" width="7.5" height="7.5" rx="1.6" fill="#26B630" transform="rotate(45 19.35 18.85)"/>
+          <path d="M100 18 L152 146 H128.5 L100 74 L71.5 146 H48 Z M100 96 L114 132 L100 146 L86 132 Z" fill="url(#mt5cHdr)" fill-rule="evenodd"></path>
+          <path d="M100 152 L110 161 L100 170 L90 161 Z" fill="url(#mt5cHdr)"></path>
+          <path d="M48 158 H80 V164 H48 Z M120 158 H152 V164 H120 Z" fill="url(#mt5cHdr)"></path>
         </svg>
       </div>
       <div class="logo-word">ATLAS</div>
@@ -336,15 +336,15 @@
     <div class="hero-emblem">
       <div class="emblem-badge">
         <div class="halo"></div>
-        <svg width="72" height="72" viewBox="0 0 38 38" fill="none" aria-hidden="true" style="position:relative">
+        <svg width="100" height="100" viewBox="0 0 200 200" fill="none" aria-hidden="true" style="position:relative">
           <defs>
-            <linearGradient id="heroRing" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#26B630"/><stop offset="100%" stop-color="#88CCEE"/>
+            <linearGradient id="mt5cHero" x1="30" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#7c828a"></stop><stop offset="0.12" stop-color="#f5f7f9"></stop><stop offset="0.3" stop-color="#9ba1a8"></stop><stop offset="0.46" stop-color="#e8ebee"></stop><stop offset="0.62" stop-color="#8e949b"></stop><stop offset="0.8" stop-color="#f5f7f9"></stop><stop offset="1" stop-color="#83898f"></stop>
             </linearGradient>
           </defs>
-          <rect x="1.5" y="1" width="35" height="35" rx="11" fill="#0E3A57" stroke="url(#heroRing)" stroke-width="1.6"/>
-          <circle cx="19" cy="18.5" r="10.5" fill="none" stroke="#CFEFFF" stroke-width="2"/>
-          <rect x="15.6" y="15.1" width="7.5" height="7.5" rx="1.6" fill="#26B630" transform="rotate(45 19.35 18.85)"/>
+          <path d="M100 18 L152 146 H128.5 L100 74 L71.5 146 H48 Z M100 96 L114 132 L100 146 L86 132 Z" fill="url(#mt5cHero)" fill-rule="evenodd"></path>
+          <path d="M100 152 L110 161 L100 170 L90 161 Z" fill="url(#mt5cHero)"></path>
+          <path d="M48 158 H80 V164 H48 Z M120 158 H152 V164 H120 Z" fill="url(#mt5cHero)"></path>
         </svg>
       </div>
       <div class="emblem-word">ATLAS</div>
@@ -415,7 +415,7 @@
       <div class="check-circle">✓</div>
       <div>
         <div style="font-weight:700;font-size:16px" data-i18n="wlOkT"></div>
-        <div style="color:#88CCEE;font-size:14px" data-i18n="wlOkD"></div>
+        <div style="color:#63CDD9;font-size:14px" data-i18n="wlOkD"></div>
       </div>
     </div>
   </div>
@@ -424,10 +424,15 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-logo-wrap">
-      <svg width="30" height="30" viewBox="0 0 38 38" fill="none" aria-hidden="true">
-        <rect x="1.5" y="1" width="35" height="35" rx="11" fill="#0E3A57" stroke="#2277BB" stroke-width="1.6"/>
-        <circle cx="19" cy="18.5" r="10.5" fill="none" stroke="#88CCEE" stroke-width="2"/>
-        <rect x="15.6" y="15.1" width="7.5" height="7.5" rx="1.6" fill="#33BB99" transform="rotate(45 19.35 18.85)"/>
+      <svg width="30" height="30" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="mt5cFoot" x1="30" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#7c828a"></stop><stop offset="0.12" stop-color="#f5f7f9"></stop><stop offset="0.3" stop-color="#9ba1a8"></stop><stop offset="0.46" stop-color="#e8ebee"></stop><stop offset="0.62" stop-color="#8e949b"></stop><stop offset="0.8" stop-color="#f5f7f9"></stop><stop offset="1" stop-color="#83898f"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M100 18 L152 146 H128.5 L100 74 L71.5 146 H48 Z M100 96 L114 132 L100 146 L86 132 Z" fill="url(#mt5cFoot)" fill-rule="evenodd"></path>
+        <path d="M100 152 L110 161 L100 170 L90 161 Z" fill="url(#mt5cFoot)"></path>
+        <path d="M48 158 H80 V164 H48 Z M120 158 H152 V164 H120 Z" fill="url(#mt5cFoot)"></path>
       </svg>
       <div>
         <div class="footer-brand-title">ATLAS</div>
@@ -447,7 +452,7 @@
 const T = {
   es: {
     heroTitle: "Toda la ciudad, en una conversación.",
-    heroSub: "¿Llegas de turista y no sabes ni dónde comer? No te preocupes, ATLAS es tu pana local — te dice dónde comer, qué hacer y cómo moverte. Al instante, en tu idioma y sin letra pequeña.",
+    heroSub: "¿Llegas de turista y no sabes ni dónde comer? No te preocupes, soy ATLAS, tu compa local — te digo dónde comer, qué hacer y cómo moverte. Al instante, en tu idioma y sin letra pequeña.",
     heroCta: "Pa' dónde vamos?",
     probLabel: "EL PROBLEMA",
     probTitle: "Viajar no debería sentirse como un trámite",
@@ -460,7 +465,7 @@ const T = {
     demoLabel: "DEMO DE CHAT",
     demoTitle: "Pregúntale lo que sea. Como a un amigo.",
     demoSub: "Elige ciudad y habla con ATLAS: restaurantes, transporte, noche, urgencias. Te tira la ruta al momento.",
-    chatWith: "tu pana en",
+    chatWith: "tu compa en",
     verified: "Pana local verificado",
     inputPh: "Pregúntame lo que sea...",
     send: "Enviar",
@@ -470,13 +475,13 @@ const T = {
     citiesSub: "Empezamos con tres y no paramos. Desliza para ver a dónde llegamos.",
     soon: "Próximamente",
     live: "Disponible",
-    wlTitle: "¿Un pana en tu próximo viaje?",
+    wlTitle: "¿Un compa en tu próximo viaje?",
     wlSub: "Déjanos tu correo y te avisamos cuando ATLAS aterrice en tu ciudad.",
     wlPh: "tu@correo.com",
     wlBtn: "Me interesa",
     wlOkT: "¡Listo!",
     wlOkD: "Te avisamos apenas ATLAS llegue a tu ciudad.",
-    footRights: "© 2026 ATLAS · Martín · CEO",
+    footRights: "© 2026 ATLAS · MBO Consolidated",
     typingLabel: "escribiendo...",
     chips: [
       { icon:"🍜", label:"¿Dónde ceno rico y barato?" },
@@ -488,8 +493,8 @@ const T = {
   },
   en: {
     heroTitle: "The whole city, in one conversation.",
-    heroSub: "You just landed and don't even know where to eat? Chill pill, ATLAS is your local bro — where to eat?, what to do?, how to get around? Instantly, in your language, no fine print.",
-    heroCta: "Prove me wrong",
+    heroSub: "You just landed and don't even know where to eat? Chill pill, I'm ATLAS, your local bro — I tell you where to eat, what to do and how to get around. Instantly, in your language, no fine print.",
+    heroCta: "The world, one tap away",
     probLabel: "THE PROBLEM",
     probTitle: "Travel shouldn't feel like paperwork",
     pains: [
@@ -517,7 +522,7 @@ const T = {
     wlBtn: "Count me in",
     wlOkT: "You're in!",
     wlOkD: "We'll ping you the moment ATLAS lands in your city.",
-    footRights: "© 2026 ATLAS · Martín · CEO",
+    footRights: "© 2026 ATLAS · MBO Consolidated",
     typingLabel: "typing...",
     chips: [
       { icon:"🍜", label:"Where do I eat well & cheap?" },
@@ -606,7 +611,40 @@ const DESTINATIONS = [
     land:"Condesa · Roma · Coyoacán" },
   { nameEs:"Londres", nameEn:"London", img:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&h=1100&fit=crop&q=80",
     tagEs:"Del pub de siempre al mercado.", tagEn:"From the classic pub to the market.",
-    land:"Soho · Shoreditch · Camden" }
+    land:"Soho · Shoreditch · Camden" },
+  { nameEs:"Cartagena", nameEn:"Cartagena", img:"https://images.unsplash.com/photo-1666977461267-c0e924696510?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la muralla al atardecer caribe.", tagEn:"From the old walls to the Caribbean sunset.",
+    land:"Ciudad Amurallada · Getsemaní · Bocagrande" },
+  { nameEs:"Nairobi", nameEn:"Nairobi", img:"https://images.unsplash.com/photo-1745526180300-443ef46e6a73?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la ciudad al safari al amanecer.", tagEn:"From the city to a sunrise safari.",
+    land:"Masái Mara · Amboseli · Nairobi NP" },
+  { nameEs:"Giza", nameEn:"Giza", img:"https://images.unsplash.com/photo-1754400534733-06ba59423253?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De las pirámides al bazar del Nilo.", tagEn:"From the pyramids to the Nile bazaar.",
+    land:"Pirámides · Esfinge · El Cairo" },
+  { nameEs:"Miami", nameEn:"Miami", img:"https://images.unsplash.com/photo-1741023705528-2953cb652705?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la playa a la noche de South Beach.", tagEn:"From the beach to South Beach nights.",
+    land:"South Beach · Wynwood · Little Havana" },
+  { nameEs:"Singapur", nameEn:"Singapore", img:"https://images.unsplash.com/photo-1744705221117-9c726f9497b0?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del hawker centre al skyline de Marina.", tagEn:"From the hawker centre to the Marina skyline.",
+    land:"Marina Bay · Chinatown · Sentosa" },
+  { nameEs:"Dubái", nameEn:"Dubai", img:"https://images.unsplash.com/photo-1748373452031-ee1ae4eb624d?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del zoco al rascacielos más alto.", tagEn:"From the souk to the tallest tower.",
+    land:"Burj Khalifa · Marina · Deira" },
+  { nameEs:"Río de Janeiro", nameEn:"Rio de Janeiro", img:"https://images.unsplash.com/photo-1596573787499-3b6cd45b2ce6?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la playa al mirador del Cristo.", tagEn:"From the beach to the Christ viewpoint.",
+    land:"Copacabana · Ipanema · Lapa" },
+  { nameEs:"Medellín", nameEn:"Medellín", img:"https://images.unsplash.com/photo-1633627425472-d07ac65e2a36?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De los cables a los bares del Poblado.", tagEn:"From the cable cars to El Poblado bars.",
+    land:"El Poblado · Laureles · Centro" },
+  { nameEs:"Cali", nameEn:"Cali", img:"https://images.unsplash.com/photo-1547045960-1cb60706f275?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De la salsa al río que no para.", tagEn:"From salsa to the river that never stops.",
+    land:"San Antonio · Granada · Juanchito" },
+  { nameEs:"Marrakech", nameEn:"Marrakech", img:"https://images.unsplash.com/photo-1760681556780-f27bf361131b?w=900&h=1100&fit=crop&q=80",
+    tagEs:"Del zoco a la plaza al anochecer.", tagEn:"From the souk to the square at dusk.",
+    land:"Medina · Jemaa el-Fna · Majorelle" },
+  { nameEs:"Islas Griegas", nameEn:"Greek Islands", img:"https://images.unsplash.com/photo-1560703649-e3055f28bcf8?w=900&h=1100&fit=crop&q=80",
+    tagEs:"De las cúpulas azules al mar Egeo.", tagEn:"From the blue domes to the Aegean Sea.",
+    land:"Santorini · Mykonos · Rodas" }
 ];
 
 let currentLang = "es";
@@ -727,7 +765,7 @@ function renderCarousel() {
 
   track.innerHTML = DESTINATIONS.map(c => `
     <div class="city-card" style="width:${cardW}px">
-      <img src="${c.img}" alt="${currentLang==='es'?c.nameEs:c.nameEn}" loading="lazy">
+      <img src="${c.img}" alt="${currentLang==='es'?c.nameEs:c.nameEn}" loading="lazy" onerror="this.style.display='none'">
       <div class="city-overlay"></div>
       <div class="city-badge ${c.live ? 'live' : ''}">${c.live ? tr.live : tr.soon}</div>
       <div class="city-info">
@@ -789,7 +827,7 @@ function submitEmail() {
   const input = document.getElementById("emailInput");
   const val = input.value.trim();
   if (!val || !val.includes("@")) {
-    input.style.borderColor = "#E88A4B";
+    input.style.borderColor = "#F45A20";
     return;
   }
   document.getElementById("wlForm").style.display = "none";
